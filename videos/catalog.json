@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "rootId": "1tKdTIVHnGWSOs4JHrvJw3gl479BZRH9J",
-  "generatedAt": "2026-11-17T14:21:58.822Z",
+  "generatedAt": "2026-11-17T14:26:04.769Z",
   "checkedDate": "2026-11-17",
   "videos": [
     {
@@ -755,6 +755,16 @@
       "modifiedTime": 1794924450958
     },
     {
+      "id": "rhyme-p50-199",
+      "driveId": "1SlDP6qx-Ffss734EyNyR5mOP9eCmPr3F",
+      "sourceName": "27 - Monster wake up call.mp4",
+      "title": "Monster wake up call",
+      "playlist": "Ms Rachel - First Sentences - Chapters",
+      "bytes": 28901325,
+      "sha256": "707a7a17b53036c8eed55aa1cd354efc7fec6cdc653fdac0392c1188f33adbf3",
+      "modifiedTime": 1794925437699
+    },
+    {
       "id": "rhyme-p50-192",
       "driveId": "1PKSvgJ_5kUP6rXOH6LtJ8I_38CVIghns",
       "sourceName": "28 - Cleanup time.mp4",
@@ -805,6 +815,36 @@
       "modifiedTime": 1794924965288
     },
     {
+      "id": "rhyme-p50-200",
+      "driveId": "1hKtx6HcmBXyr4uRaQbbFJ296wQHeiude",
+      "sourceName": "33 - Ship and spider fun.mp4",
+      "title": "Ship and spider fun",
+      "playlist": "Ms Rachel - First Sentences - Chapters",
+      "bytes": 39539368,
+      "sha256": "509bf558ed3ebd494fb12a76c48a9eee1e61402195d22e2da6e54c1d442b02bf",
+      "modifiedTime": 1794925253518
+    },
+    {
+      "id": "rhyme-p50-201",
+      "driveId": "1YfqJysNBJtcIIjRro3vCzbr1RLurpynS",
+      "sourceName": "34 - Meeting a new friend.mp4",
+      "title": "Meeting a new friend",
+      "playlist": "Ms Rachel - First Sentences - Chapters",
+      "bytes": 62075362,
+      "sha256": "50a227813cf40b6998e48653820663622f357ee7df5fa7d6b06734679475deeb",
+      "modifiedTime": 1794925334941
+    },
+    {
+      "id": "rhyme-p50-202",
+      "driveId": "1of88UnYI-wLYM84ttiSG34gL0JQT9J3z",
+      "sourceName": "35 - Rowing and roaring.mp4",
+      "title": "Rowing and roaring",
+      "playlist": "Ms Rachel - First Sentences - Chapters",
+      "bytes": 44507984,
+      "sha256": "86c21919a0176d500ee548453168eb643a2864f1e21dab78edc5abed67d017d2",
+      "modifiedTime": 1794925163707
+    },
+    {
       "id": "rhyme-p50-197",
       "driveId": "1gHV7c-gv2RnL78OJYe-lePhVqXBqpUkQ",
       "sourceName": "36 - Pretend driving fun.mp4",
@@ -823,6 +863,26 @@
       "bytes": 43550553,
       "sha256": "eb18441d6b0df9db2c4a7c497891575ddc0cfaf45d4b18ae85d6ff090fddb17c",
       "modifiedTime": 1794925061538
+    },
+    {
+      "id": "rhyme-p50-203",
+      "driveId": "1klSNGUWHFKVIhVXcNBJC4njL92_apRsS",
+      "sourceName": "38 - Asking for help.mp4",
+      "title": "Asking for help",
+      "playlist": "Ms Rachel - First Sentences - Chapters",
+      "bytes": 20959378,
+      "sha256": "6510777e192e189abf7b3bbf21ee18936a68eb75f79b6ea144aabe6282dcffc7",
+      "modifiedTime": 1794925194568
+    },
+    {
+      "id": "rhyme-p50-204",
+      "driveId": "1P5hO6MwsZOGSvptPs9Esm8qmVrix98Hm",
+      "sourceName": "39 - Saying goodbye.mp4",
+      "title": "Saying goodbye",
+      "playlist": "Ms Rachel - First Sentences - Chapters",
+      "bytes": 42027891,
+      "sha256": "b3b810a85ec322e33759fb7a59d6f9f0a67a549f7ae1b11705a55d70f4e45e88",
+      "modifiedTime": 1794925395259
     },
     {
       "id": "rhyme-01",
