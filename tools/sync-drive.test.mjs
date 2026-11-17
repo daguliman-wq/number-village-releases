@@ -28,3 +28,18 @@ test('unchanged source skips media downloads; a failed scan preserves last good 
   globalThis.fetch=async()=>new Response('Forbidden',{status:403});await assert.rejects(sync(dir));assert.equal(await fs.readFile(path.join(dir,'catalog.json'),'utf8'),good);
  }finally{globalThis.fetch=saved;await fs.rm(dir,{recursive:true,force:true});}
 });
+
+test('Google Vids entries do not block MP4 discovery',async()=>{
+ const rows=[['VideoId001',null,'One.mp4','video/mp4',null,null,null,null,null,1000,null,null,null,123],['GoogleVids001',null,'Editable video','application/vnd.google-apps.vid']];
+ const html="_DRIVE_ivd'] = '"+JSON.stringify([rows]).replace(/"/g,'\\x22')+"'";
+ const saved=globalThis.fetch;
+ try{globalThis.fetch=async url=>new Response(String(url).includes('embeddedfolderview')?'<title>Folder</title><a href="https://drive.google.com/file/d/VideoId001/view">One</a><a href="https://docs.google.com/videos/d/GoogleVids001/edit">Edit</a>':html);
+  const files=await scan();assert.equal(files.length,1);assert.equal(files[0].driveId,'VideoId001');
+ }finally{globalThis.fetch=saved;}
+});
+test('empty public folder is accepted only with a verified empty embedded listing',async()=>{
+ const saved=globalThis.fetch;const html="_DRIVE_ivd'] = '[null,null,null]'";
+ try{globalThis.fetch=async url=>new Response(String(url).includes('embeddedfolderview')?'<title>Folder</title><div class="flip-entries"></div>':html);assert.deepEqual(await scan(),[]);
+  globalThis.fetch=async url=>new Response(String(url).includes('embeddedfolderview')?'<title>Folder</title><a href="https://drive.google.com/file/d/HiddenVideo/view">Hidden</a>':html);await assert.rejects(scan());
+ }finally{globalThis.fetch=saved;}
+});

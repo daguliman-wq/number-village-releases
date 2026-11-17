@@ -9,9 +9,9 @@ export function decodeListing(html){
  const raw=html.match(/_DRIVE_ivd'\]\s*=\s*'((?:\\.|[^'\\])*)'/)?.[1];
  if(!raw)throw Error('Public folder listing unavailable (sharing or Drive page changed)');
  const text=JSON.parse('"'+raw.replace(/"/g,'\\"').replace(/\\x([0-9a-f]{2})/gi,'\\u00$1').replace(/\\'/g,"'")+'"');
- const data=JSON.parse(text);if(!Array.isArray(data[0]))throw Error('Unknown folder listing');
+ const data=JSON.parse(text);if(!Array.isArray(data)||!(data[0]===null||Array.isArray(data[0])))throw Error('Unknown folder listing');
  // Completeness is checked against the public embedded folder listing.
- return data[0].map(r=>({driveId:r[0],name:r[2],mime:r[3],bytes:Number(r[13]),modifiedTime:Number(r[9])}));
+ return (data[0]||[]).map(r=>({driveId:r[0],name:r[2],mime:r[3],bytes:Number(r[13]),modifiedTime:Number(r[9])}));
 }
 async function response(url){const r=await fetch(url,{signal:AbortSignal.timeout(120000)});if(!r.ok)throw Error('Drive HTTP '+r.status);return r;}
 async function listing(id){
@@ -19,7 +19,8 @@ async function listing(id){
   const rows=decodeListing(await (await response('https://drive.google.com/drive/folders/'+id)).text());
   const embedded=await(await response('https://drive.google.com/embeddedfolderview?id='+id)).text();
   if(!embedded.includes('<title>'))throw Error('Embedded folder unavailable');
-  const all=new Set([...embedded.matchAll(/https:\/\/drive\.google\.com\/(?:file\/d\/|drive\/folders\/)([A-Za-z0-9_-]{5,150})/g)].map(m=>m[1]));
+  if(rows.length===0&&!/<div class="flip-entries">\s*<\/div>/.test(embedded))throw Error('Empty folder not confirmed');
+  const all=new Set([...embedded.matchAll(/https:\/\/(?:drive\.google\.com\/(?:file\/d\/|drive\/folders\/)|docs\.google\.com\/[^/]+\/d\/)([A-Za-z0-9_-]{5,150})/g)].map(m=>m[1]));
   const found=new Set(rows.map(r=>r.driveId));if(all.size!==found.size||[...all].some(key=>!found.has(key)))throw Error('Folder metadata incomplete; configure DRIVE_API_KEY for paginated listing');
   return rows;
  }
