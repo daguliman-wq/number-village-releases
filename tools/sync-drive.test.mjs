@@ -43,3 +43,9 @@ test('empty public folder is accepted only with a verified empty embedded listin
   globalThis.fetch=async url=>new Response(String(url).includes('embeddedfolderview')?'<title>Folder</title><a href="https://drive.google.com/file/d/HiddenVideo/view">Hidden</a>':html);await assert.rejects(scan());
  }finally{globalThis.fetch=saved;}
 });
+
+test('pre-split archive folders are excluded without hiding ordinary video folders',async()=>{
+ const folder=(driveId,name)=>({driveId,name,mime:'application/vnd.google-apps.folder'});
+ const loads=[];const files=await scan(async id=>{loads.push(id);if(id===ROOT)return [folder('ArchiveFolder','Harry The Bunny - 원본 모음집 (분할 전 보관)'),folder('EpisodeFolder','Harry The Bunny - 개별 에피소드'),folder('OtherOriginal','원본 학습')];if(id==='ArchiveFolder')throw Error('Archive should not be opened');return [{driveId:id+'Video',name:'Song.mp4',mime:'video/mp4',bytes:100,modifiedTime:1000}];});
+ assert.equal(files.length,2);assert.equal(loads.includes('ArchiveFolder'),false);assert.ok(files.some(f=>f.folder==='원본 학습'));
+});

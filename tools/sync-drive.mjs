@@ -34,7 +34,7 @@ export async function scan(load=listing){
  const pending=[{id:ROOT,folder:''}],seen=new Set(),files=[];
  while(pending.length){const {id,folder}=pending.shift();if(seen.has(id)||seen.size>=200)throw Error('Folder cycle or limit');seen.add(id);
   const rows=await load(id);for(const r of rows){if(!/^[A-Za-z0-9_-]{5,150}$/.test(r.driveId)||typeof r.name!=='string')throw Error('Invalid Drive metadata');
-   if(r.mime==='application/vnd.google-apps.folder')pending.push({id:r.driveId,folder:[folder,r.name].filter(Boolean).join('/')});
+   if(r.mime==='application/vnd.google-apps.folder'){if(!r.name.endsWith('(분할 전 보관)'))pending.push({id:r.driveId,folder:[folder,r.name].filter(Boolean).join('/')});}
    else if(r.mime==='video/mp4'){if(!Number.isSafeInteger(r.bytes)||r.bytes<=0||r.bytes>4*1024**3||!Number.isFinite(r.modifiedTime)||r.modifiedTime<=0)throw Error('Invalid video metadata');files.push({...r,folder:folder||'동요'});}
   }if(files.length>5000)throw Error('Video limit');
  }return files.sort((a,b)=>(a.folder+'/'+a.name).localeCompare(b.folder+'/'+b.name,'en',{numeric:true}));
